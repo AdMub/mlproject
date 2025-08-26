@@ -36,7 +36,7 @@ class ModelTrainer:
                 test_array[:,-1]
             )
             models = {
-                "Adaboost Regressor": AdaBoostRegressor(),
+                "AdaBoost Regressor": AdaBoostRegressor(),
                 "CatBoosting Regressor": CatBoostRegressor(verbose=False),
                 "Decision Tree": DecisionTreeRegressor(),
                 "Gradient Boosting": GradientBoostingRegressor(),
@@ -89,9 +89,8 @@ class ModelTrainer:
 
             }
 
-            model_report: dict = evaluate_models(X_train=X_train,y_train=y_train,X_test=X_test,y_test=y_test,
-                                             models=models,param=params
-                                             )
+            model_report:dict=evaluate_models(X_train=X_train,y_train=y_train,X_test=X_test,y_test=y_test,
+                                             models=models,param=params)
             
             ### To Get the Best Score from dict
             best_model_score = max(sorted(model_report.values()))
@@ -119,6 +118,27 @@ class ModelTrainer:
 
         except Exception as e:
             raise CustomException(e, sys)
+
+if __name__ == "__main__":
+    from src.components.data_ingestion import DataIngestion
+    from src.components.data_transformation import DataTransformation
+
+    #  Run data ingestion
+    ingestion = DataIngestion()
+    train_path, test_path = ingestion.initiate_data_ingestion()
+
+    #  Run data transformation
+    transformation = DataTransformation()
+    train_arr, test_arr, preprocessor_path = transformation.initiate_data_transformation(
+        train_path, test_path
+    )
+
+    #  Run model training
+    trainer = ModelTrainer()
+    r2_score = trainer.initiate_model_trainer(train_arr, test_arr)
+
+    print(f"✅ Model training completed. R2 Score: {r2_score}")
+    print(f"✅ Model saved at: {trainer.model_trainer_config.trained_model_file_path}")
 
 
 # Commands
