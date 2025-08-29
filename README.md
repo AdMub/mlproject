@@ -104,8 +104,8 @@ The project demonstrates the **complete ML lifecycle** – from data collection,
   - **Result Page**
 - **GitHub Actions** CI/CD pipeline for automated deployment
 - Deployment Targets:
-  - [Azure Web App](#) 🔹 *(update with live link)*
-  - [AWS Elastic Beanstalk](#) 🔹 *(update with live link)*
+  - [Azure Web App](#) 🔹 
+  - [AWS Elastic Beanstalk](#) 🔹 
 - **Dockerized container** for portability
 
  
@@ -122,10 +122,11 @@ docker build -t student-performance .
 
 # Run container
 docker run -p 5000:5000 student-performance
+```
 
 
 [![Docker](https://img.shields.io/badge/Docker-Containerized-blue?logo=docker)](https://hub.docker.com/)  
-```
+
 
 ---
 
